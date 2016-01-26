@@ -13,7 +13,10 @@
   },
   "scripts": {
     "test": "node test.es5.js",
-    "build": "babel mut.js > mut.es5.js && babel test.js > test.es5.js",
+    "test:dev": "npm run build:test && babel-node test.js",
+    "build": "npm run build:lib && npm run build:test",
+    "build:lib": "babel mut.js > mut.es5.js",
+    "build:test": "babel test.js > test.es5.js",
     "deploy": "npm build && npm test && npm publish"
   },
   "keywords": [
