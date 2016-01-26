@@ -58,8 +58,13 @@ import assert from 'assert';
 }
 {
     const mutator = mut()({a: 1, b: 2})();
-    const obj = mutator({c: 3});
-    assert(obj.a === 1 && obj.b === 2 && obj.c === 3);
+    const dummy = mutator({c: 3});
+    assert(dummy.a === 1 && dummy.b === 2 && dummy.c === 3);
+}
+{
+    const obj = {'a.b.c': 1};
+    const dummy = mut(obj)('a.b.c', 2, false)('a.b', 3)();
+    assert(dummy['a.b.c'] === 1 && dummy.a.b === 3);
 }
 
 console.log('tests: ok');

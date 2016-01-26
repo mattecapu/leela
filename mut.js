@@ -28,6 +28,8 @@ function mut(data = undefined, immutable = true, __mutations = []) {
     // lambda which practically mutates the object
     const __mutator = immutable ? mutateImmutably : mutateMutably;
 
+    // if as_deep is set to false, keys like 'a.b.c'
+    // won't be parsed as nested objects
     return (mutation, val = undefined, as_deep = true) => {
         if (mutation === undefined) {
             if (data === undefined) {
