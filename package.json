@@ -1,0 +1,32 @@
+{
+  "name": "mut",
+  "version": "1.0.0",
+  "description": "chainable object mutation interface",
+  "main": "mut.es5.js",
+  "dependencies": {
+    "ramda": "^0.19.1"
+  },
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13"
+  },
+  "scripts": {
+    "test": "node test.es5.js",
+    "build": "babel mut.js > mut.es5.js && babel test.js > test.es5.js",
+    "deploy": "npm build && npm test && npm publish"
+  },
+  "keywords": [
+    "mutation",
+    "chainable",
+    "interface",
+    "functional"
+  ],
+  "author": "Matteo Capucci <mattecapu@live.it>",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
