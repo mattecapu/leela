@@ -5,10 +5,11 @@ const mutator = (p, v, data) => {
     // simple key assignment
     if (p.length === 1) {
         data[p] = v;
-        return data;
+    } else {
+        // unnest one level and mutate
+        mutator(p.slice(1), v, data[p[0]]);
     }
-    // unnest one level and mutate
-    return mutator(p.slice(1), v, data[p[0]]);
+    return data;
 }
 
 function mut(data = {}, immutable = true) {
