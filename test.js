@@ -56,5 +56,10 @@ import assert from 'assert';
     const dummy = mut(obj)('a.b', 7)('b', 8)();
     assert(dummy.a.b === 7 && dummy.b === 8);
 }
+{
+    const mutator = mut()({a: 1, b: 2})();
+    const obj = mutator({c: 3});
+    assert(obj.a === 1 && obj.b === 2 && obj.c === 3);
+}
 
 console.log('tests: ok');

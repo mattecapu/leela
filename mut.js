@@ -19,9 +19,9 @@ const mutateMutably = (p, v, data) => {
     return data;
 };
 
-function mut(data = {}, immutable = true, __mutations = []) {
+function mut(data = undefined, immutable = true, __mutations = []) {
 
-    if (typeof data !== 'object') {
+    if (data !== undefined && typeof data !== 'object') {
         throw new TypeError('mut() cannot mutate non-object types');
     }
 
@@ -29,11 +29,16 @@ function mut(data = {}, immutable = true, __mutations = []) {
     const __mutator = immutable ? mutateImmutably : mutateMutably;
 
     return (mutation, val = undefined, as_deep = true) => {
-        // apply mutations
         if (mutation === undefined) {
-            return __mutations
-                .map(({key, val}) => (o => __mutator(key, val, o)))
-                .reduce((par, m) => m(par), data);
+            if (data === undefined) {
+                // return a mutating function
+                return (obj) => mut(obj, immutable, __mutations)();
+            } else {
+                // apply mutations
+                return __mutations
+                    .map(({key, val}) => (o => __mutator(key, val, o)))
+                    .reduce((par, m) => m(par), data);
+            }
         }
 
         let new_mutations = [];
