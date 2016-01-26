@@ -33,7 +33,12 @@ import assert from 'assert';
 }
 {
     const obj = {a: 1};
-    const dummy = mut(obj, false)('d', {e: 4})('d.e', 5)();
+    const dummy = mut(obj, false)('a.b', 2)();
+    assert(dummy.a.b === 2);
+}
+{
+    const obj = {a: 1};
+    const dummy = mut(obj)('d', {e: 4})('d.e', 5)();
     assert(dummy.a === 1 && dummy.d.e === 5);
 }
 

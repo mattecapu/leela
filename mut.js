@@ -6,6 +6,10 @@ const mutator = (p, v, data) => {
     if (p.length === 1) {
         data[p] = v;
     } else {
+        // if we are getting too deep, create new objects
+        if (typeof (data[p[0]]) !== 'object') {
+            data[p[0]] = {};
+        }
         // unnest one level and mutate
         mutator(p.slice(1), v, data[p[0]]);
     }
