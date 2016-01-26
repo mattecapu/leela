@@ -41,5 +41,20 @@ import assert from 'assert';
     const dummy = mut(obj)('d', {e: 4})('d.e', 5)();
     assert(dummy.a === 1 && dummy.d.e === 5);
 }
+{
+    const obj = {a: {b: 3, c: 4}};
+    const dummy = mut(obj)({a: {b: 5}})();
+    assert(dummy.a.b === 5 && dummy.a.c === 4);
+}
+{
+    const obj = {a: {b: 3, c: {d: 5}}};
+    const dummy = mut(obj)({a: {b: 6, c: {d: 7}, d: 8}})();
+    assert(dummy.a.b === 6 && dummy.a.c.d === 7 && dummy.a.d === 8);
+}
+{
+    const obj = {a: {b: 5}, b: 6};
+    const dummy = mut(obj)('a.b', 7)('b', 8)();
+    assert(dummy.a.b === 7 && dummy.b === 8);
+}
 
 console.log('tests: ok');
