@@ -1,23 +1,24 @@
 {
-  "name": "mut",
-  "version": "1.0.0",
+  "name": "leela",
+  "version": "1.0.1",
   "description": "chainable object mutation interface",
-  "main": "mut.es5.js",
+  "main": "leela.es5.js",
   "dependencies": {
     "ramda": "^0.19.1"
   },
   "devDependencies": {
     "babel": "^6.3.26",
     "babel-cli": "^6.4.5",
+    "babel-plugin-add-module-exports": "^0.1.2",
     "babel-preset-es2015": "^6.3.13"
   },
   "scripts": {
     "test": "node test.es5.js",
     "test:dev": "npm run build:test && babel-node test.js",
     "build": "npm run build:lib && npm run build:test",
-    "build:lib": "babel mut.js > mut.es5.js",
+    "build:lib": "babel leela.js > leela.es5.js",
     "build:test": "babel test.js > test.es5.js",
-    "deploy": "npm build && npm test && npm publish"
+    "deploy": "npm run build && npm test && npm publish"
   },
   "keywords": [
     "mutation",
@@ -28,8 +29,7 @@
   "author": "Matteo Capucci <mattecapu@live.it>",
   "license": "ISC",
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"],
+    "plugins": ["add-module-exports"]
   }
 }

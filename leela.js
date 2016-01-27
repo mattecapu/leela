@@ -1,7 +1,7 @@
 import R from 'ramda';
 
 const INVALID_MUTATION_ERROR =
-    'mut(): mutations can be described either by an object or by providing a string key and a value';
+    'leela(): mutations can be described either by an object or by providing a string key and a value';
 
 const mutateImmutably = R.assocPath;
 const mutateMutably = (p, v, data) => {
@@ -19,10 +19,10 @@ const mutateMutably = (p, v, data) => {
     return data;
 };
 
-function mut(data = undefined, immutable = true, __mutations = []) {
+function leela(data = undefined, immutable = true, __mutations = []) {
 
     if (data !== undefined && typeof data !== 'object') {
-        throw new TypeError('mut() cannot mutate non-object types');
+        throw new TypeError('leela() cannot mutate non-object types');
     }
 
     // lambda which practically mutates the object
@@ -34,7 +34,7 @@ function mut(data = undefined, immutable = true, __mutations = []) {
         if (mutation === undefined) {
             if (data === undefined) {
                 // return a mutating function
-                return (obj) => mut(obj, immutable, __mutations)();
+                return (obj) => leela(obj, immutable, __mutations)();
             } else {
                 // apply mutations
                 return __mutations
@@ -75,8 +75,8 @@ function mut(data = undefined, immutable = true, __mutations = []) {
         } else {
             throw new TypeError(INVALID_MUTATION_ERROR);
         }
-        return mut(data, immutable, __mutations.concat(new_mutations))
+        return leela(data, immutable, __mutations.concat(new_mutations))
     };
 }
 
-export default mut;
+export default leela;
